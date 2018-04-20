@@ -1,0 +1,73 @@
+limit:限制查询返回出来的条数
+offset:指定select语句开始查询的数据偏移量，默认情况下偏移量为0
+CRUD:增删改查(Create Retrieve Update Delete)
+decimal(3,1):结果三位数字，小数点后一位
+
+select * from table1 t1
+join table2 t2 on t1.id=t2.cid
+join table3 t3 on t3.sid=t1.id
+where name='Nill';
+
+select * from table1 t1, table2 t2, table3 t3
+where t1.name='Jack' and t1.id=t2.cid and t3.sid=t1.id;
+select * from student order by(-id):查找结果按id值倒序排列
+select * from student where id in (1,2):搜索id为1、2的元组
+desc grade:查询表结构
+alter table studemt change 旧名称 新名称 int;:改变列的名称
+alter table student drop 列名称;:删除指定列
+alter table StudentInfo add constraint cc foreign key(i_id) references Student(id);:表格建好后再指定外键
+
+聚合函数:group by(分组)、order by（排序）、sum(求和)、count(计数),max(取最大值)、min(取最小值)、avg（求平均值）
+select count(*) as '学生个数', tc.cname as ‘班级名称’from tb_stu ts join tb_class tc on ts.cid=tc.id group by(tc.id);:count --> 计数 as --> 重命名
+foreign key(cid) references tb_class(id):创建外键
+
+4.查询每个班级下有多少学生
+select count(*) as '学生人数', g.g_name as '班级名称' from Student s join Grade g on s.g_id=g.id group by(g.g_name);
+
+5.查询每个班级下学生的语文成绩最高的学生（一个学生）
+select * from
+(select max(s_chinese) as c, g_id from student s1 group by s1.g_id) t1
+join student t2 on t2.s_chinese = t1.c
+and t1.g_id = t2.g_id;
+
+所有班:select * from Student where s_chinese in (select max(s_chinese) from Student);
+
+6.查询每个班级下学生的数学成绩最低的学生（前三个）
+select * from student s1
+where 3>= (
+select count(*) from student s
+where s1.s_math >= s.s_math
+and s1.g_id=s.g_id
+)order by s1.g_id, s1.s_math;
+
+所有班:select * from Student order by(s_math) limit 3;
+
+7.统计每个班级下语文成绩的平均值，以及总和
+select avg(s.s_chinese) as '语文平均分', sum(s.s_chinese) as '语文总分', g.g_name as '班级名称' from Student s join Grade g on g.id=s.g_id group by(g.g_name);
+
+8.查询每个班级下语文成绩大于60分的学生信息
+select * from Student s
+where s.s_chinese>60
+order by s.g_id;
+
+set null:删除主表数据时，关联表对应值设置为null
+if(条件,exper1,exper2)
+ifnull(条件,exper1,exper2)
+having 后面可以加函数进行筛选 与group by连用
+where stubirth between '1980-1-1'and '1989-12-1':选取区间值
+inner join on/ left outer join on/right outer join on
+bit:布尔值
+longblob:二进制大对象，是一个可以存储二进制文件的容器
+
+mysql事务:
+原子性:一个事务是不可分割的整体，要么都做，要么都不做
+一致性:数据库从一个状态变为另一个状态
+隔离性:一个事务在执行的时候不能被其他的事务干扰，即各事务之间的操作互不干扰
+持久性:一个事务一旦提交，对数据库的变化就是永久性的
+
+windows下:
+py2.x连接数据库: pip install mysqldb
+py3.x连接数据库: pip install PyMySQL
+
+pip list:查看pip中的内容
+pip freeze:查看用pip安装的内容

@@ -1,0 +1,66 @@
+分支(branch)
+     
+      线上分支(master) --> 中央服务器  最终的项目代码
+      测试分支(test)
+      开发分支(dev)
+      自己开发分支
+      同事开发分支
+
+      码云:可以创建私有代码
+      git:创建私有代码需要收取费用
+
+      github使用:
+      git clone https://github.com/iversongit/20180420.git:将代码克隆到本地
+      git status:查看分支工作区状态
+      git branch:查看所有分支
+
+      git checkout -b 分支名:创建分支并切换(copy master)
+      git checkout 分支名:切换分支
+      git branch -d 分支名:删除本地分支
+      git push origin --delete 分支名:删除远程分支
+
+      git add .:将所有修改添加到缓存区中
+      git add 修改的文件名:将修改后的指定数据添加到缓存区
+
+      git commit -m '注解': 提交修改到本地分支
+      git pull origin 分支名:如果多人开发，为保持一致性需要先拉取一下代码再提交到远端
+      
+      git push origin 分支名:提交本地分支到远程分支上，空的文件夹传不上去
+
+      ssh-keygen -t rsa -C 帐号:创建ssh密钥,以后克隆ssh地址后提交不用再输入帐号、密码
+
+      git commit -am '注解':将add和commit命令结合在一起
+
+      git config --global user.email "xxx" : 设置全局邮箱
+      git config --global user.name "xxx" : 设置全局用户名
+
+      git diff yusir master:查看两个分支的不同
+
+      git checkout master
+      git merge yusir
+      git push origin master:切换到master分支下，合并yusir分支的内容后提交
+
+      git tag:查看当前的所有版本
+      git tag -a 版本号 -m '注解':在master分支下进行，上线代码需要打tag
+      git push origin 版本号:推送版本
+      git tag -d 版本号:删除本地版本
+      git push origin  --delete tag 版本号:删除远端版本
+
+如何不用emerge就将修改内容从一个分支转到另一个分支,只能改现有文件，不能新建文件
+      git stash [save] [-a] ["注解"]:缓存当前修改数据,save可加可不加，如果加入了新代码，则需加-a
+
+      git status:查看当前分支工作状态，如果缓存了，修改会由红变绿
+      git checkout 分支名:切换到应用缓存的指定分支
+      git stash list:查看有哪些缓存
+      git stash apply/pop stash@{x}:应用指定缓存,x --> 缓存号,使用pop后缓存会消失
+      git stash drop stash@{x}:删除指定缓存，x --> 缓存号
+      git stash clear:清除所有缓存
+
+      git log:查看代码提交信息
+      git show 版本id:查看指定版本信息
+      git reset --hard 版本id:代码回滚,返回历史版本
+
+
+      vim下:
+      	ctrl + insert 复制
+        shift + insert 粘贴
